@@ -30,9 +30,9 @@ def get_max_user_id():
     return max_id
 
 #app 1
-def add_new_person(name,img1,img2,img3):
+def add_new_person(name,img1,img2):
     nid = get_max_user_id()+1
-    imgs = [img1, img2, img3]
+    imgs = [img1, img2]
     imgs = [u.resize_image(imgg) for imgg in imgs]
     print(len(imgs))
     print("new ID: ",nid)
@@ -50,7 +50,7 @@ def checkin(img):
   return "Checked in: " + person_name
 
 #interface 1
-app1 =  gr.Interface(fn = add_new_person, inputs=["text",gr.Image(type="numpy"),gr.Image(type="numpy"),gr.Image(type="numpy")], outputs="text")
+app1 =  gr.Interface(fn = add_new_person, inputs=["text",gr.Image(type="numpy"),gr.Image(type="numpy")], outputs="text")
 #interface 2
 
 app2 =  gr.Interface(fn = checkin, inputs=gr.Image(type="numpy"), outputs="text")

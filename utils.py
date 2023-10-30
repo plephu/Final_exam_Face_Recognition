@@ -66,7 +66,6 @@ def add_new_person(imgs,new_id,model_interf,face_crop,name):
     # filenames = filenames.tolist()
     filename_new = np.append(filenames,os.path.basename(img_names[0]))
     filename_new = np.append(filename_new,os.path.basename(img_names[1]))
-    filename_new = np.append(filename_new,os.path.basename(img_names[2]))
     filename_new = np.array(filename_new)
     print(normalized_embeddings_new.shape)
     print(filename_new.shape)
@@ -76,7 +75,6 @@ def add_new_person(imgs,new_id,model_interf,face_crop,name):
     writer = csv.writer(file)
     writer.writerow([new_id, name, img_names[0]])
     writer.writerow([new_id, name, img_names[1]])
-    writer.writerow([new_id, name, img_names[2]])
     # save new info
     np.savez(npy_data, embs=embss_root, imm_classes=imm_classes_new, filenames=filename_new)
     np.savez(npy_class_data, embs=normalized_embeddings_new)
