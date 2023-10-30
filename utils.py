@@ -37,9 +37,9 @@ def add_new_person(imgs,new_id,model_interf,face_crop,name):
         filename =  ''.join(random.choices(string.ascii_lowercase +
                              string.digits, k=8)) + '.jpg'
         img_names.append(filename)
-        img_path = os.path.join("/content/static/images", filename)
+        img_path = os.path.join("static/images", filename)
         imsave(img_path,img)
-        cropped_path = os.path.join("/content/static/cropped_image", filename)
+        cropped_path = os.path.join("static/cropped_image", filename)
         imsave(cropped_path, crop_image(img_path,face_crop))
         print(cropped_path)
         img = cv2.imread(cropped_path)
@@ -81,7 +81,7 @@ def add_new_person(imgs,new_id,model_interf,face_crop,name):
     return normalized_embeddings_new,imm_classes_new,filename_new
 
 
-def find_string_by_person_id(person_id,csv_file="/content/static/data.csv"):
+def find_string_by_person_id(person_id,csv_file="static/data.csv"):
     df = pd.read_csv(csv_file,header=None,names=['person_id','name','path'])
     person_id = person_id[0]
     filtered_df = df[df['person_id'] == person_id]
@@ -113,13 +113,13 @@ def return_id_imgs(img,model_interf,face_crop):
     embss = np.load(npy_class_data)['embs']
     filename =  ''.join(random.choices(string.ascii_lowercase +
                              string.digits, k=8)) + '.jpg'
-    img_path = os.path.join("/content/static/images", filename)
+    img_path = os.path.join("static/images", filename)
     imsave(img_path,img)
     # embedding first
     semb = single_embedding(img_path,model_interf,face_crop) #single embedding
     k = 1
     # every time prediction, read the latest faiss index
-    index = faiss.read_index("/content/vector.index")
+    index = faiss.read_index("vector.index")
     target_representation = np.array(semb, dtype='f')
     target_representation = np.expand_dims(target_representation, axis=0)
     distances, neighbors = index.search(target_representation, k)
@@ -138,7 +138,7 @@ def crop_image(img_path,face_crop):
 def single_embedding(img_path,model_interf,face_crop):
     
     filename = os.path.basename(img_path)
-    cropped_path = os.path.join("/content/static/cropped_image", filename)
+    cropped_path = os.path.join("static/cropped_image", filename)
     imsave(cropped_path, crop_image(img_path,face_crop))
     img = cv2.imread(cropped_path)
     img = cv2.resize(img, (112,112), interpolation=cv2.INTER_AREA)
@@ -173,8 +173,8 @@ def resize_image(img, max_size=1200):
 def get_max_user_id():
     # get current max_user_id
     max_id = 999  # Default value if data.csv doesn't exist or is empty
-    if os.path.isfile('/content/static/data.csv'):
-        with open('/content/static/data.csv', 'r') as file:
+    if os.path.isfile('static/data.csv'):
+        with open('static/data.csv', 'r') as file:
             reader = csv.reader(file)
             for row in reader:
                 user_id = int(row[0])
