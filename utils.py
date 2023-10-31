@@ -1,6 +1,6 @@
-npy_data = "/content/static/embeddings/vn2.npz"
+npy_data = "static/embeddings/vn2.npz"
 
-npy_class_data = "/content/static/embeddings/processed_embedding.npz"
+npy_class_data = "static/embeddings/processed_embedding.npz"
 import random
 import string
 import csv
