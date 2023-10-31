@@ -57,4 +57,4 @@ app2 =  gr.Interface(fn = checkin, inputs=gr.Image(type="numpy"), outputs="text"
 
 demo = gr.TabbedInterface([app1, app2], ["Register Your Attendance", "Check Your Attendance"])
 
-demo.launch(share=True)
+demo.launch(share=True,server_name="0.0.0.0")
